@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<App id="ZYSoft.SellOut" name="SellOut" appType="Production">
+  <Service>
+    <Extension Point_id="Ufida.T.EAP.Service.Config">
+      <Config id="ZYSoft" src="config/services_zysoft.xml"></Config>
+    </Extension>
+  </Service>
+</App>

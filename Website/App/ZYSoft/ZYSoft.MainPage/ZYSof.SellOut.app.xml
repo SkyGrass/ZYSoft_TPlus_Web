@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<App id="ZYSoft.MainPage" name="MainPage" appType="Production">
+  <Web>
+    <Extension Point_id="Ufida.T.EAP.Web.Page.Load">
+      <View id="MainPage.aspx"
+            path="App/ZYSoft/ZYSoft.MainPage/MainPage.aspx"
+            class="Chanjet.ZYSoft.SellOut.UIP.HelloWorldPage"   ></View>
+    </Extension>
+  </Web>
+</App>

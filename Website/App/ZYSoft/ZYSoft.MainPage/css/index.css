@@ -1,0 +1,40 @@
+.header {
+    height: 40px !important;
+    box-shadow: 2px 2px 4px #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.action {
+    color: #333;
+    height: 40px !important;
+    line-height: 20px;
+    width: 65px;
+}
+
+.shortaction {
+    width: 15px;
+    color: #333;
+}
+
+.action:hover, .action:active {
+    color: #3788FF;
+}
+
+.manin {
+    padding: 15px 10px 10px 10px;
+}
+
+.el-form {
+    font-size: 13px !important;
+}
+
+.el-input__inner, .el-input-group__append {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.el-input-group__append {
+    background-color: transparent;
+}

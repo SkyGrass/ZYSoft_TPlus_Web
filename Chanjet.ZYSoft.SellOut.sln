@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chanjet.ZYSoft.SellOut", "Chanjet.ZYSoft.SellOut", "{4C65788E-C158-4586-BBDE-FA9C8C2EDB48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appserver", "Appserver", "{59F00B60-A286-4A86-8EF5-9867DC45F760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chanjet.ZYSoft.SellOut.Interface", "Chanjet.ZYSoft.SellOut\Chanjet.ZYSoft.SellOut.Interface\Chanjet.ZYSoft.SellOut.Interface.csproj", "{53A97D13-4FC5-4EA8-B72B-6BD027F516E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chanjet.ZYSoft.SellOut.Service", "Chanjet.ZYSoft.SellOut\Chanjet.ZYSoft.SellOut.Service\Chanjet.ZYSoft.SellOut.Service.csproj", "{A38B1305-7D39-4FEC-AD7E-D14B381A3853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chanjet.ZYSoft.SellOut.UIP", "Chanjet.ZYSoft.SellOut\Chanjet.ZYSoft.SellOut.UIP\Chanjet.ZYSoft.SellOut.UIP.csproj", "{DA236089-9BCC-4D7B-9D25-E3309F32B150}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Website", "Website\", "{712B8FC8-9D5D-4118-AEA9-EFB8E2877E10}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = ""
+		Debug.AspNetCompiler.VirtualPath = "/Website"
+		Debug.AspNetCompiler.PhysicalPath = "Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Website\"
+		Debug.AspNetCompiler.Updateable = "false"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "true"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Website"
+		Release.AspNetCompiler.PhysicalPath = "Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Website\"
+		Release.AspNetCompiler.Updateable = "false"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "true"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "17951"
+		SlnRelativePath = "Website\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{B2CCF872-7887-440F-9F3F-42A00F6657D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZYSoft", "ZYSoft", "{A571E3D6-D5B4-462B-9FCD-E7CD8D882C25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZYSoft.SellOut", "ZYSoft.SellOut", "{F075A2C7-50BB-41C4-AE44-BF0BB0F69767}"
+	ProjectSection(SolutionItems) = preProject
+		Appserver\App\ZYSoft\ZYSoft.SellOut\ZYSoft.SellOut.app.xml = Appserver\App\ZYSoft\ZYSoft.SellOut\ZYSoft.SellOut.app.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{3DA72C83-BA11-40F6-8684-E394D530DFC1}"
+	ProjectSection(SolutionItems) = preProject
+		Appserver\App\ZYSoft\ZYSoft.SellOut\config\services_zysoft.xml = Appserver\App\ZYSoft\ZYSoft.SellOut\config\services_zysoft.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "service", "service", "{C776D872-673D-47CF-B5D9-0308627AD46D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53A97D13-4FC5-4EA8-B72B-6BD027F516E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A97D13-4FC5-4EA8-B72B-6BD027F516E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A97D13-4FC5-4EA8-B72B-6BD027F516E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A97D13-4FC5-4EA8-B72B-6BD027F516E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38B1305-7D39-4FEC-AD7E-D14B381A3853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38B1305-7D39-4FEC-AD7E-D14B381A3853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38B1305-7D39-4FEC-AD7E-D14B381A3853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38B1305-7D39-4FEC-AD7E-D14B381A3853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA236089-9BCC-4D7B-9D25-E3309F32B150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA236089-9BCC-4D7B-9D25-E3309F32B150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA236089-9BCC-4D7B-9D25-E3309F32B150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA236089-9BCC-4D7B-9D25-E3309F32B150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712B8FC8-9D5D-4118-AEA9-EFB8E2877E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712B8FC8-9D5D-4118-AEA9-EFB8E2877E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712B8FC8-9D5D-4118-AEA9-EFB8E2877E10}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{712B8FC8-9D5D-4118-AEA9-EFB8E2877E10}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53A97D13-4FC5-4EA8-B72B-6BD027F516E7} = {4C65788E-C158-4586-BBDE-FA9C8C2EDB48}
+		{A38B1305-7D39-4FEC-AD7E-D14B381A3853} = {4C65788E-C158-4586-BBDE-FA9C8C2EDB48}
+		{DA236089-9BCC-4D7B-9D25-E3309F32B150} = {4C65788E-C158-4586-BBDE-FA9C8C2EDB48}
+		{B2CCF872-7887-440F-9F3F-42A00F6657D8} = {59F00B60-A286-4A86-8EF5-9867DC45F760}
+		{A571E3D6-D5B4-462B-9FCD-E7CD8D882C25} = {B2CCF872-7887-440F-9F3F-42A00F6657D8}
+		{F075A2C7-50BB-41C4-AE44-BF0BB0F69767} = {A571E3D6-D5B4-462B-9FCD-E7CD8D882C25}
+		{3DA72C83-BA11-40F6-8684-E394D530DFC1} = {F075A2C7-50BB-41C4-AE44-BF0BB0F69767}
+		{C776D872-673D-47CF-B5D9-0308627AD46D} = {F075A2C7-50BB-41C4-AE44-BF0BB0F69767}
+	EndGlobalSection
+EndGlobal

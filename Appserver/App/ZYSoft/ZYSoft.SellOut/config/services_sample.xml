@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="x-cp20936" ?>
+<services domain="Sample" desc="">
+  <service name="Chanjet.ZYSoft.SellOut.Interface.IHelloWorld"
+           className="Chanjet.ZYSoft.SellOut.Service.HelloWorld"
+           loadFrom="..\server\Chanjet.ZYSoft.SellOut.Service.dll"
+           desc="" mode="normal"></service>
+</services>

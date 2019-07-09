@@ -402,7 +402,7 @@
                     confirmButtonText: '确定'
                 });
             } else {
-                const loading = this.$loading({
+                var loading = this.$loading({
                     lock: true,
                     text: '生单中...',
                     spinner: 'el-icon-loading',

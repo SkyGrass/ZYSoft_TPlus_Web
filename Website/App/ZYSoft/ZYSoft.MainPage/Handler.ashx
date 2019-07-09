@@ -19,12 +19,6 @@ public class Handler : IHttpHandler
         public object data { get; set; }
         public string msg { get; set; }
     }
-    public class Select
-    {
-        public string value { get; set; }
-        public string code { get; set; }
-        public string label { get; set; }
-    }
 
     public class PostForm
     {
@@ -389,7 +383,7 @@ public class Handler : IHttpHandler
         TResult result = new TResult();
         try
         {
-            DataTable dt = ZYSoft.DB.BLL.Common.ExecuteDataTable(string.Format(@"exec Zysoft_buildTBill '{0}'", billId));
+            DataTable dt = ZYSoft.DB.BLL.Common.ExecuteDataTable(string.Format(@"exec zysoft_buildtbill '{0}'", billId));
 
             if (dt != null && dt.Rows.Count > 0)
             {

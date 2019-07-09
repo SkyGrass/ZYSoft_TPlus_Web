@@ -81,7 +81,7 @@
                     item.FQty = 0;
                     item.FPrice = selected.iprice;
                     item.FSum = accMul(0, selected.iprice);
-                    var FTaxPrice = accMul(selected.iprice, accAdd(0, accDiv(that.form.FTaxRate, 100)));
+                    var FTaxPrice = accMul(selected.iprice, accAdd(1, accDiv(that.form.FTaxRate, 100)));
                     item.FTaxPrice = FTaxPrice
                     item.FTaxSum = accMul(0, FTaxPrice);
                     item.FTaxRate = that.form.FTaxRate;
@@ -238,7 +238,7 @@
                         that.form.FCusCode = historyClient.code;
                         that.form.FCusName = historyClient.name;
                         that.form.FWarehouseCode = historyStock.code;
-                        that.form.FWarehouseID = historyStock.name;
+                        that.form.FWarehouseName = historyStock.name;
                         that.form.FWarehouseID = historyStock.id
                     } else {
 
@@ -278,10 +278,12 @@
             this.changBtnStatus("add");
         },
         changBtnStatus(status) {
-            vm.actions[1].status = status == "read" ? "no" : "ok";
-            vm.actions[2].status = status == "read" ? "no" : "ok";
-            vm.actions[4].status = status == "read" ? "no" : "ok";
-            vm.actions[6].status = status == "read" ? "no" : "ok";
+            this.actions[1].status = status == "read" ? "no" : "ok";
+            this.actions[2].status = status == "read" ? "no" : "ok";
+            this.actions[3].status = status == "add" ? "no" : "ok";
+            this.actions[4].status = status == "read" ? "no" : "ok";
+            this.actions[5].status = status == "add" ? "no" : "ok";
+            this.actions[6].status = status == "read" ? "no" : "ok";
         },
         deleteRow() {
             this.tableData.length > 0 &&
@@ -597,7 +599,16 @@
                     field: "FPrice",
                     align: "right",
                     width: 120,
-                    headerSort: false
+                    headerSort: false,
+                    editor: "number",
+                    validator: "min:1",
+                    cellEdited: function (cell) {
+                        var postion = cell.getRow().getPosition();
+                        var rowData = cell.getData();
+                        rowData.FSum = accMul(cell.getValue(), rowData.FQty)
+                        rowData.FTaxPrice = accMul(cell.getValue(), accAdd(1, accDiv(rowData.FTaxRate, 100)));
+                        rowData.FTaxSum = accMul(rowData.FQty, rowData.FTaxPrice)
+                    }
                 },
                 {
                     title: "金额",
@@ -617,7 +628,16 @@
                     field: "FTaxPrice",
                     align: "right",
                     width: 120,
-                    headerSort: false
+                    headerSort: false,
+                    editor: "number",
+                    validator: "min:1",
+                    cellEdited: function (cell) {
+                        var postion = cell.getRow().getPosition();
+                        var rowData = cell.getData();
+                        rowData.FTaxSum = accMul(cell.getValue(), rowData.FQty)
+                        rowData.FPrice = accDiv(cell.getValue(), accAdd(1, accDiv(rowData.FTaxRate, 100))).toFixed(3);
+                        rowData.FSum = accMul(rowData.FPrice, rowData.FQty)
+                    }
                 },
                 {
                     title: "含税金额",
@@ -648,5 +668,6 @@
         this.queryClientSelect();
         this.genBillId();
         this.genBillNo();
+        this.initBill();
     }
 });

@@ -11,12 +11,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>销货单</title>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <link rel="stylesheet" href="./css/element-ui-index.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <link rel="stylesheet" href="./assets/icon/iconfont.css" />
-    <link href="https://unpkg.com/tabulator-tables@4.2.7/dist/css/tabulator.min.css" rel="stylesheet" />
+    <link href="./css/tabulator.min.css" rel="stylesheet" />
     <style>
         .el-dialog__body {
             padding: 10px 10px;
@@ -35,7 +34,7 @@
 <body>
     <asp:Label ID="lbConnect" runat="server" Visible="false"></asp:Label>
     <asp:Label ID="lblHelloWorld" runat="server" Visible="false"></asp:Label>
-        <div id="app">
+    <div id="app">
         <el-container>
             <el-header class="header">
                 <div style="display: inline-flex">
@@ -177,12 +176,12 @@
         </el-dialog>
     </div>
     <!-- import Vue before Element -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script src="https://cdn.bootcss.com/tabulator/4.2.7/js/tabulator.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/calc.js"></script>
-    <script src="https://unpkg.com/dayjs"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/element-ui-index.js"></script>
+    <script src="./js/tabulator.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/calc.js"></script>
+    <script src="./js/dayjs.min.js"></script>
     <script>
         var loginName = "<%=lblHelloWorld.Text%>"
         var connect = "<%=lbConnect.Text%>"

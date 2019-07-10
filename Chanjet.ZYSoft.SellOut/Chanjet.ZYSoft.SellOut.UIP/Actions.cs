@@ -9,12 +9,6 @@ namespace Chanjet.ZYSoft.SellOut.UIP
 {
     public class Actions
     {
-        [AjaxPro.AjaxMethod()]
-        public string GetWareHoseList()
-        {
-            string value = ServiceFactory.getService<IHelloWorld>().GetWareHoseList();
-            return value;
-        }
         
     }
 }

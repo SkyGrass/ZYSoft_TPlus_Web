@@ -327,6 +327,10 @@ public class Handler : IHttpHandler
 
             List<string> ls_sql = new List<string>();
 
+            DataTable dt = ZYSoft.DB.BLL.Common.ExecuteDataTable(string.Format(@"exec zysoft_buildbillno 1"));
+
+            var billNo = dt.Rows[0]["FBillNo"].ToString();
+            form.FBillNo = billNo;
             ls_sql.Add(string.Format(@"INSERT INTO [ZYSoft_Record] ([FBillID] ,[FBillNo] ,[FDate] ,[FCustCode] ,[FReciveTypeCode] ,[FWarehouseCode] ,
                                         [FWarehouseID] ,[FWarehouseName] ,[FTaxRate] ,[FMaker] ,[FMemo]) VALUES ({0} ,'{1}' ,'{2}' ,'{3}' ,'{4}' ,'{5}' ,{6} ,'{7}' ,{8} ,'{9}' ,'{10}')",
                                         form.FBillID, form.FBillNo, form.FDate, form.FCustCode, form.FReciveTypeCode, form.FWarehouseCode, form.FWarehouseID,

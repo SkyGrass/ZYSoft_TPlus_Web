@@ -2,8 +2,5 @@
 {
     public interface IHelloWorld
     {
-        string GetWareHoseList();
-
-        string GetConnect();
     }
 }

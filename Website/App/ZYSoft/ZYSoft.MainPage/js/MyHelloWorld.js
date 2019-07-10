@@ -183,11 +183,11 @@
                 data: { SelectApi: "GetStockInfo", wareId: this.form.FWarehouseID },
                 dataType: "json",
                 success: function (result) {
+                    that.stockInfo = [];
+                    that.stockInfo_bark = [];
                     if (result.status == "success") {
                         that.stockInfo = result.data;
                         that.stockInfo_bark = result.data;
-                    } else {
-
                     }
                 }
             });
@@ -201,6 +201,8 @@
                 data: { SelectApi: "GetWareHoseList" },
                 dataType: "json",
                 success: function (result) {
+                    that.wareHoseList = [];
+                    that.wareHoseList_bark = [];
                     if (result.status == "success") {
                         that.wareHoseList = result.data;
                         that.wareHoseList_bark = result.data;
@@ -219,6 +221,8 @@
                 data: { SelectApi: "GetClient" },
                 dataType: "json",
                 success: function (result) {
+                    that.clientList = [];
+                    that.clientList_bark = [];
                     if (result.status == "success") {
                         that.clientList = result.data;
                         that.clientList_bark = result.data;
@@ -235,7 +239,7 @@
                         });
                         historyClient = JSON.parse(historyClient);
                         historyStock = JSON.parse(historyStock);
-                        that.form.FCusCode = historyClient.code;
+                        that.form.FCustCode = historyClient.code;
                         that.form.FCusName = historyClient.name;
                         that.form.FWarehouseCode = historyStock.code;
                         that.form.FWarehouseName = historyStock.name;
@@ -363,6 +367,7 @@
                                 vm.billstatus = 'read'; //单据只读
                                 vm.buildBill();
                             }).catch(function () {
+                                vm.changBtnStatus('read');
                                 vm.billstatus = 'read'; //单据只读
                             })
                         } else {
@@ -408,7 +413,7 @@
                     lock: true,
                     text: '生单中...',
                     spinner: 'el-icon-loading',
-                    background: 'rgba(0, 0, 0, 0.7)'
+                    background: 'rgba(0, 0, 0, 0.5)'
                 });
                 $.ajax({
                     type: "POST",
@@ -417,7 +422,7 @@
                     data: { SelectApi: "buildBill", billid: this.form.FBillID },
                     dataType: "json",
                     beforeSend: function () {
-                        vm.fullscreenLoading = true;
+                        //vm.fullscreenLoading = true;
                     },
                     success: function (result) {
                         if (result.status == "success") {

@@ -28,6 +28,13 @@
         .tabulator-tableHolder {
             background-color: #fff;
         }
+        
+        .el-loading-mask {
+            background-color: rgba(255,255,255,.5);
+        }
+        .el-loading-spinner .el-loading-text {
+            color: red;
+        }
     </style>
 </head>
 

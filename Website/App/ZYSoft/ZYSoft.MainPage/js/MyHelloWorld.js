@@ -87,6 +87,10 @@
                     item.FTaxRate = that.form.FTaxRate;
                     item.FBatchNo = selected.batch;
                     item.FDetailMemo = "";
+                    item.FPriuserdefnvc1 = selected.priuserdefnvc1;
+                    item.FPriuserdefnvc2 = selected.priuserdefnvc2;
+                    item.FPriuserdefnvc3 = selected.priuserdefnvc3;
+                    item.FPriuserdefnvc4 = selected.priuserdefnvc4;
                     return item;
                 });
                 var list = [];
@@ -656,6 +660,34 @@
                 {
                     title: "批号",
                     field: "FBatchNo",
+                    align: "right",
+                    editor: "false",
+                    headerSort: false
+                },
+                {
+                    title: "自定义项1",
+                    field: "FPriuserdefnvc1",
+                    align: "right",
+                    editor: "false",
+                    headerSort: false
+                },
+                {
+                    title: "自定义项2",
+                    field: "FPriuserdefnvc2",
+                    align: "right",
+                    editor: "false",
+                    headerSort: false
+                },
+                {
+                    title: "自定义项3",
+                    field: "FPriuserdefnvc3",
+                    align: "right",
+                    editor: "false",
+                    headerSort: false
+                },
+                {
+                    title: "自定义项4",
+                    field: "FPriuserdefnvc4",
                     align: "right",
                     editor: "false",
                     headerSort: false

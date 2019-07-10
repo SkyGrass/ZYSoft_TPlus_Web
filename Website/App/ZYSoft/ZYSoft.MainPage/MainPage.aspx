@@ -28,10 +28,11 @@
         .tabulator-tableHolder {
             background-color: #fff;
         }
-        
+
         .el-loading-mask {
             background-color: rgba(255,255,255,.5);
         }
+
         .el-loading-spinner .el-loading-text {
             color: red;
         }
@@ -147,6 +148,26 @@
                <el-table-column
                   prop="batch"
                   label="批号"
+                   width="100">
+                </el-table-column>
+               <el-table-column
+                  prop="priuserdefnvc1"
+                  label="自定义项1"
+                   width="100">
+                </el-table-column>
+               <el-table-column
+                  prop="priuserdefnvc2"
+                  label="自定义项2"
+                   width="100">
+                </el-table-column>
+               <el-table-column
+                  prop="priuserdefnvc3"
+                  label="自定义项3"
+                   width="100">
+                </el-table-column>
+               <el-table-column
+                  prop="priuserdefnvc4"
+                  label="自定义项4"
                    width="100">
                 </el-table-column>
               </el-table>

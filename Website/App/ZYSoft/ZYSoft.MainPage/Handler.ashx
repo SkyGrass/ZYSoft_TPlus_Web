@@ -58,6 +58,10 @@ public class Handler : IHttpHandler
         public decimal FTaxSum { get; set; }
         public string FBatchNo { get; set; }
         public string FDetailMemo { get; set; }
+        public string FPriuserdefnvc1 { get; set; }
+        public string FPriuserdefnvc2 { get; set; }
+        public string FPriuserdefnvc3 { get; set; }
+        public string FPriuserdefnvc4 { get; set; }
     }
 
     public class TResult
@@ -156,7 +160,8 @@ public class Handler : IHttpHandler
             (string.Format(@"select t1.idinventory, t2.code invcode,t2.name invname,
                         t2.specification invstd,t2.idunit,t21.code unitcode,
                         t21.name unitname,
-                        t1.basequantity iquantity, 0 iprice,t1.batch
+                        t1.basequantity iquantity, 0 iprice,t1.batch,t2.priuserdefnvc1 
+                        ,t2.priuserdefnvc2,t2.priuserdefnvc3,t2.priuserdefnvc4
                         from st_currentstock t1
                         left join dbo.aa_inventory t2 on t1.idinventory=t2.id
                         left join dbo.aa_unit t21 on t2.idunit=t21.id
@@ -339,10 +344,12 @@ public class Handler : IHttpHandler
             foreach (Body body in bodys)
             {
                 ls_sql.Add(string.Format(@"INSERT INTO [ZYSoft_RecordEntry] ([FMainItemID] ,[FWarehouseCode] ,[FInvCode] ,[FInvName] ,[FInvStd] ,
-                                        [FUnitName] ,[FPrice] ,[FQty] ,[FSum] ,[FTaxRate] ,[FTaxPrice] ,[FTaxSum] ,[FBatchNo] ,[FDetailMemo],[FPlanQty]) 
-                                        VALUES ({0},'{1}','{2}','{3}','{4}','{5}',{6},{7},{8},{9},{10},{11},'{12}','{13}',{14})",
+                                        [FUnitName] ,[FPrice] ,[FQty] ,[FSum] ,[FTaxRate] ,[FTaxPrice] ,[FTaxSum] ,[FBatchNo] ,[FDetailMemo],[FPlanQty],
+                                        [FPriuserdefnvc1],[FPriuserdefnvc2],[FPriuserdefnvc3],[FPriuserdefnvc4]) 
+                                        VALUES ({0},'{1}','{2}','{3}','{4}','{5}',{6},{7},{8},{9},{10},{11},'{12}','{13}',{14},'{15}','{16}','{17}','{18}')",
                                          form.FBillID, body.FWarehouseCode, body.FInvCode, body.FInvName, body.FInvStd, body.FUnitName, body.FPrice,
-                                         body.FQty, body.FSum, body.FTaxRate, body.FTaxPrice, body.FTaxSum, body.FBatchNo, body.FDetailMemo, body.FPlanQty));
+                                         body.FQty, body.FSum, body.FTaxRate, body.FTaxPrice, body.FTaxSum,
+                                         body.FBatchNo, body.FDetailMemo, body.FPlanQty,body.FPriuserdefnvc1,body.FPriuserdefnvc2,body.FPriuserdefnvc3,body.FPriuserdefnvc4));
             }
 
             if (ls_sql.Count > 0)

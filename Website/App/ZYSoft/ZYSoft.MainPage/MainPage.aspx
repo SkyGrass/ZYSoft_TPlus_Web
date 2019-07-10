@@ -29,12 +29,8 @@
             background-color: #fff;
         }
 
-        .el-loading-mask {
-            background-color: rgba(255,255,255,.5);
-        }
-
-        .el-loading-spinner .el-loading-text {
-            color: red;
+        .underline {
+            width: 160px !important;
         }
     </style>
 </head>
@@ -68,11 +64,11 @@
                             <el-form-item label="单据日期">
                                 <el-date-picker v-model="form.FDate" placeholder=""></el-date-picker>
                             </el-form-item>
-                            <el-form-item label="单据编号" label-width="80px">
+                            <el-form-item label="单据编号">
                                 <el-input class="underline" v-model="form.FBillNo" readOnly></el-input>
                             </el-form-item>
                             <el-form-item label="税率(%)">
-                                <el-input v-model="form.FTaxRate" type="number" min="0" max="100">
+                                <el-input class="underline" v-model="form.FTaxRate" type="number" min="0" max="100">
                                 </el-input>
                             </el-form-item>
                         </el-form>

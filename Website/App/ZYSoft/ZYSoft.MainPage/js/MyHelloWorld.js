@@ -662,6 +662,7 @@
                     field: "FBatchNo",
                     align: "right",
                     editor: "false",
+                    width: 120,
                     headerSort: false
                 },
                 {
@@ -669,6 +670,7 @@
                     field: "FPriuserdefnvc1",
                     align: "right",
                     editor: "false",
+                    width: 120,
                     headerSort: false
                 },
                 {
@@ -676,6 +678,7 @@
                     field: "FPriuserdefnvc2",
                     align: "right",
                     editor: "false",
+                    width: 120,
                     headerSort: false
                 },
                 {
@@ -683,6 +686,7 @@
                     field: "FPriuserdefnvc3",
                     align: "right",
                     editor: "false",
+                    width: 120,
                     headerSort: false
                 },
                 {
@@ -690,6 +694,7 @@
                     field: "FPriuserdefnvc4",
                     align: "right",
                     editor: "false",
+                    width: 120,
                     headerSort: false
                 },
                 {
@@ -697,6 +702,7 @@
                     field: "FDetailMemo",
                     align: "left",
                     editor: "input",
+                    width: 160,
                     headerSort: false
                 }
             ]

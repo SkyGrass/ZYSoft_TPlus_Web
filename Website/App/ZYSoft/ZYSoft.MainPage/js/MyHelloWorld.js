@@ -348,42 +348,54 @@
                 });
             } else {
                 var that = this;
-                $.ajax({
-                    type: "POST",
-                    url: "handler.ashx",
-                    async: true,
-                    data: {
-                        SelectApi: "SaveBill", formData: JSON.stringify({
-                            form: $.extend({}, this.form, { FDate: dayjs(this.formFDate).format("YYYY-MM-DD hh:mm:ss"), FTaxRate: accDiv(this.form.FTaxRate, 100) }),
-                            body: $.extend(true, [], this.tableData).map(function (row) {
-                                row.FPlanQty = 0;
-                                row.FTaxRate = accDiv(row.FTaxRate, 100)
-                                return row;
-                            })
-                        })
-                    },
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.status == "success") {
-                            vm.$confirm('保存单据成功, 是否继续生单?', '提示', {
-                                confirmButtonText: '确定',
-                                cancelButtonText: '取消',
-                                type: 'warning'
-                            }).then(function (response) {
-                                vm.changBtnStatus('read');
-                                vm.billstatus = 'read'; //单据只读
-                                vm.buildBill();
-                            }).catch(function () {
-                                vm.changBtnStatus('read');
-                                vm.billstatus = 'read'; //单据只读
-                            })
-                        } else {
-                            return vm.$alert(result.message, '错误', {
-                                confirmButtonText: '确定'
-                            });
-                        }
-                    }
+                var sum = "0";
+                var temp = $.extend(true, [], this.tableData);
+                $.each(temp, function (i, n) {
+                    sum += accAdd(sum, n.FSum)
                 });
+
+                if (accSub(this.form.FAllowances, sum) > 0) {
+                    return vm.$alert("抹零金额超出总金额!请修改!", '错误', {
+                        confirmButtonText: '确定'
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "handler.ashx",
+                        async: true,
+                        data: {
+                            SelectApi: "SaveBill", formData: JSON.stringify({
+                                form: $.extend({}, this.form, { FDate: dayjs(this.formFDate).format("YYYY-MM-DD hh:mm:ss"), FTaxRate: accDiv(this.form.FTaxRate, 100) }),
+                                body: $.extend(true, [], this.tableData).map(function (row) {
+                                    row.FPlanQty = 0;
+                                    row.FTaxRate = accDiv(row.FTaxRate, 100)
+                                    return row;
+                                })
+                            })
+                        },
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.status == "success") {
+                                vm.$confirm('保存单据成功, 是否继续生单?', '提示', {
+                                    confirmButtonText: '确定',
+                                    cancelButtonText: '取消',
+                                    type: 'warning'
+                                }).then(function (response) {
+                                    vm.changBtnStatus('read');
+                                    vm.billstatus = 'read'; //单据只读
+                                    vm.buildBill();
+                                }).catch(function () {
+                                    vm.changBtnStatus('read');
+                                    vm.billstatus = 'read'; //单据只读
+                                })
+                            } else {
+                                return vm.$alert(result.message, '错误', {
+                                    confirmButtonText: '确定'
+                                });
+                            }
+                        }
+                    });
+                }
             }
         },
         deleteBill() {
@@ -416,54 +428,41 @@
                     confirmButtonText: '确定'
                 });
             } else {
-
-                var sum = "0";
-                var temp = $.extend(true, [], this.tableData);
-                $.each(temp, function (i, n) {
-                    sum += accAdd(sum, n.FSum)
+                var loading = this.$loading({
+                    lock: true,
+                    text: '生单中...',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.5)'
                 });
-
-                if (accSub(this.form.FAllowances, sum) > 0) {
-                    return vm.$alert("抹零金额超出总金额!请修改!", '错误', {
-                        confirmButtonText: '确定'
-                    });
-                } else {
-                    var loading = this.$loading({
-                        lock: true,
-                        text: '生单中...',
-                        spinner: 'el-icon-loading',
-                        background: 'rgba(0, 0, 0, 0.5)'
-                    });
-                    $.ajax({
-                        type: "POST",
-                        url: "handler.ashx",
-                        async: true,
-                        data: { SelectApi: "buildBill", billid: this.form.FBillID },
-                        dataType: "json",
-                        beforeSend: function () {
-                            //vm.fullscreenLoading = true;
-                        },
-                        success: function (result) {
-                            if (result.status == "success") {
-                                return vm.$alert('生成单据成功!', '成功', {
-                                    confirmButtonText: '确定'
-                                }).then(function (response) {
-                                    if (response == "confirm") {
-                                        vm.initBill();
-                                    }
-                                })
-                            } else {
-                                return vm.$alert(result.msg, '错误', {
-                                    confirmButtonText: '确定'
-                                });
-                            }
-                        },
-                        complete: function () {
-                            vm.fullscreenLoading = false;
-                            loading.close();
+                $.ajax({
+                    type: "POST",
+                    url: "handler.ashx",
+                    async: true,
+                    data: { SelectApi: "buildBill", billid: this.form.FBillID },
+                    dataType: "json",
+                    beforeSend: function () {
+                        //vm.fullscreenLoading = true;
+                    },
+                    success: function (result) {
+                        if (result.status == "success") {
+                            return vm.$alert('生成单据成功!', '成功', {
+                                confirmButtonText: '确定'
+                            }).then(function (response) {
+                                if (response == "confirm") {
+                                    vm.initBill();
+                                }
+                            })
+                        } else {
+                            return vm.$alert(result.msg, '错误', {
+                                confirmButtonText: '确定'
+                            });
                         }
-                    });
-                }
+                    },
+                    complete: function () {
+                        vm.fullscreenLoading = false;
+                        loading.close();
+                    }
+                });
             }
         },
         genBillNo() {

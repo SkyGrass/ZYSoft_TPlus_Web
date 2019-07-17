@@ -39,6 +39,7 @@ public class Handler : IHttpHandler
         public decimal FTaxRate { get; set; }
         public string FMaker { get; set; }
         public string FMemo { get; set; }
+        public decimal FAllowances { get; set; }
     }
     public class Body
     {
@@ -157,15 +158,17 @@ public class Handler : IHttpHandler
         {
             //DBSession db = DBSessionFactory.getDBSession();
             DataTable dt = ZYSoft.DB.BLL.Common.ExecuteDataTable
-            (string.Format(@"select t1.idinventory, t2.code invcode,t2.name invname,
+            (string.Format(@"SELECT t1.idwarehouse, t1.idinventory, t2.code invcode,t2.name invname,
                         t2.specification invstd,t2.idunit,t21.code unitcode,
                         t21.name unitname,
-                        t1.basequantity iquantity, 0 iprice,t1.batch,t2.priuserdefnvc1 
-                        ,t2.priuserdefnvc2,t2.priuserdefnvc3,t2.priuserdefnvc4
+                        t1.basequantity iquantity, t1.batch,t2.priuserdefnvc1 
+                        ,t2.priuserdefnvc2,t2.priuserdefnvc3,t2.priuserdefnvc4,
+                        ISNULL((SELECT TOP 1 inPrice FROM ST_TransVoucher u1 JOIN dbo.ST_TransVoucher_b u2 ON u1.id=u2.idTransVoucherDTO
+                        WHERE u1.idinwarehouse=t1.idwarehouse AND u2.idinventory =t1.idinventory ORDER BY t2.id DESC ),0) iprice
                         from st_currentstock t1
                         left join dbo.aa_inventory t2 on t1.idinventory=t2.id
                         left join dbo.aa_unit t21 on t2.idunit=t21.id
-                        where t1.basequantity>0 and t1.idwarehouse={0}", wareId));
+                        where t1.basequantity>0  and t1.idwarehouse={0}", wareId));
             return JsonConvert.SerializeObject(new
             {
                 status = dt.Rows.Count > 0 ? "success" : "error",
@@ -337,9 +340,9 @@ public class Handler : IHttpHandler
             var billNo = dt.Rows[0]["FBillNo"].ToString();
             form.FBillNo = billNo;
             ls_sql.Add(string.Format(@"INSERT INTO [ZYSoft_Record] ([FBillID] ,[FBillNo] ,[FDate] ,[FCustCode] ,[FReciveTypeCode] ,[FWarehouseCode] ,
-                                        [FWarehouseID] ,[FWarehouseName] ,[FTaxRate] ,[FMaker] ,[FMemo]) VALUES ({0} ,'{1}' ,'{2}' ,'{3}' ,'{4}' ,'{5}' ,{6} ,'{7}' ,{8} ,'{9}' ,'{10}')",
+                                        [FWarehouseID] ,[FWarehouseName] ,[FTaxRate] ,[FMaker] ,[FMemo] ,[FAllowances]) VALUES ({0} ,'{1}' ,'{2}' ,'{3}' ,'{4}' ,'{5}' ,{6} ,'{7}' ,{8} ,'{9}' ,'{10}' ,'{11}')",
                                         form.FBillID, form.FBillNo, form.FDate, form.FCustCode, form.FReciveTypeCode, form.FWarehouseCode, form.FWarehouseID,
-                                       form.FWarehouseName, form.FTaxRate, form.FMaker, form.FMemo));
+                                       form.FWarehouseName, form.FTaxRate, form.FMaker, form.FMemo, form.FAllowances));
 
             foreach (Body body in bodys)
             {
@@ -349,7 +352,7 @@ public class Handler : IHttpHandler
                                         VALUES ({0},'{1}','{2}','{3}','{4}','{5}',{6},{7},{8},{9},{10},{11},'{12}','{13}',{14},'{15}','{16}','{17}','{18}')",
                                          form.FBillID, body.FWarehouseCode, body.FInvCode, body.FInvName, body.FInvStd, body.FUnitName, body.FPrice,
                                          body.FQty, body.FSum, body.FTaxRate, body.FTaxPrice, body.FTaxSum,
-                                         body.FBatchNo, body.FDetailMemo, body.FPlanQty,body.FPriuserdefnvc1,body.FPriuserdefnvc2,body.FPriuserdefnvc3,body.FPriuserdefnvc4));
+                                         body.FBatchNo, body.FDetailMemo, body.FPlanQty, body.FPriuserdefnvc1, body.FPriuserdefnvc2, body.FPriuserdefnvc3, body.FPriuserdefnvc4));
             }
 
             if (ls_sql.Count > 0)

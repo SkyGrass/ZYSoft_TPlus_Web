@@ -71,6 +71,10 @@
                                 <el-input class="underline" v-model="form.FTaxRate" type="number" min="0" max="100">
                                 </el-input>
                             </el-form-item>
+                            <el-form-item label="抹零">
+                                <el-input class="underline" v-model="form.FAllowances" type="number"  step="0.01" @change="inputance">
+                                </el-input>
+                            </el-form-item>
                         </el-form>
                     </el-header>
                     <el-main style="'height':maxHeight">
@@ -95,7 +99,7 @@
                 </el-form>
             </el-footer>
            </el-container>
-       <el-dialog :title="'库存查询：'+form.FWarehouseName" :visible.sync="stockVisible">
+       <el-dialog :title="'库存查询：'+form.FWarehouseName" :visible.sync="stockVisible"  :width="stockWidth">
               <el-input placeholder="存货名称、存货档案、存货规格型号" focus v-model="queryStockform.keyword" @change="remoteQueryStock">
               </el-input>  
            <el-table
@@ -132,6 +136,26 @@
                   width="80">
                 </el-table-column>
                <el-table-column
+                  prop="priuserdefnvc1"
+                  label="颜色"
+                   width="100">
+                </el-table-column>
+               <el-table-column
+                  prop="priuserdefnvc2"
+                  label="冠劲"
+                   width="100">
+                </el-table-column>
+               <el-table-column
+                  prop="priuserdefnvc3"
+                  label="长度"
+                   width="100">
+                </el-table-column>
+               <el-table-column
+                  prop="priuserdefnvc4"
+                  label="高度"
+                   width="100">
+                </el-table-column>
+               <el-table-column
                   prop="iquantity"
                   label="数量"
                   width="80">
@@ -144,26 +168,6 @@
                <el-table-column
                   prop="batch"
                   label="批号"
-                   width="100">
-                </el-table-column>
-               <el-table-column
-                  prop="priuserdefnvc1"
-                  label="自定义项1"
-                   width="100">
-                </el-table-column>
-               <el-table-column
-                  prop="priuserdefnvc2"
-                  label="自定义项2"
-                   width="100">
-                </el-table-column>
-               <el-table-column
-                  prop="priuserdefnvc3"
-                  label="自定义项3"
-                   width="100">
-                </el-table-column>
-               <el-table-column
-                  prop="priuserdefnvc4"
-                  label="自定义项4"
                    width="100">
                 </el-table-column>
               </el-table>

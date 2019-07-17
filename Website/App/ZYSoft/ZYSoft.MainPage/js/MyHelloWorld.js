@@ -35,7 +35,8 @@
                 FWarehouseName: "",
                 FTaxRate: 13,
                 FMaker: "",
-                FIsBuild: false
+                FIsBuild: false,
+                FAllowances: "0.000"
             },
             queryStockform: {
                 keyword: ""
@@ -54,7 +55,9 @@
             grid: {},
             tableData: [],
             multipleSelection: [],
-            clientSelection: {}
+            clientSelection: {},
+            stockWidth: "50%",
+            maxValue: 10
         };
     },
     methods: {
@@ -232,22 +235,22 @@
                         that.clientList_bark = result.data;
 
 
-                        var historyClient = localStorage.getItem("clientInfo") || JSON.stringify({
-                            code: "",
-                            name: ""
-                        });
-                        var historyStock = localStorage.getItem("stockInfo") || JSON.stringify({
-                            code: "",
-                            name: "",
-                            id: "-1"
-                        });
-                        historyClient = JSON.parse(historyClient);
-                        historyStock = JSON.parse(historyStock);
-                        that.form.FCustCode = historyClient.code;
-                        that.form.FCusName = historyClient.name;
-                        that.form.FWarehouseCode = historyStock.code;
-                        that.form.FWarehouseName = historyStock.name;
-                        that.form.FWarehouseID = historyStock.id
+                        //var historyClient = localStorage.getItem("clientInfo") || JSON.stringify({
+                        //    code: "",
+                        //    name: ""
+                        //});
+                        //var historyStock = localStorage.getItem("stockInfo") || JSON.stringify({
+                        //    code: "",
+                        //    name: "",
+                        //    id: "-1"
+                        //});
+                        //historyClient = JSON.parse(historyClient);
+                        //historyStock = JSON.parse(historyStock);
+                        //that.form.FCustCode = historyClient.code;
+                        //that.form.FCusName = historyClient.name;
+                        //that.form.FWarehouseCode = historyStock.code;
+                        //that.form.FWarehouseName = historyStock.name;
+                        //that.form.FWarehouseID = historyStock.id
                     } else {
 
                     }
@@ -489,6 +492,33 @@
         },
         canUse(action) {
             return action.status == "no"
+        },
+        inputance(e) {
+            var p1 = e.split('.')[0];
+            if (p1 == "") {
+                p1 = "0"
+            }
+            var p2 = e.split('.')[1];
+            if (p2) {
+                if (p2.length > 3) {
+                    this.form.FAllowances = p1 + '.' + p2.substring(0, 3)
+                }
+            } else {
+                this.form.FAllowances = p1 + '.000'
+            }
+
+            if (Number(this.form.FAllowances) < 0) {
+                this.form.FAllowances = '0.000' //小于0 则置为0
+            }
+
+            var temp = $.extend(true, [], this.tableData);
+            var sum = "0.000";
+            $.each(temp, function (i, n) {
+                sum += accAdd(sum, n.FSum)
+            });
+            if (accSub(this.form.FAllowances, sum) > 0) {
+                this.form.FAllowances = sum //超过总金额 则置为总金额
+            }
         }
     },
     watch: {
@@ -573,6 +603,38 @@
                     align: "center",
                     headerSort: false,
                     width: 100
+                },
+                {
+                    title: "颜色",
+                    field: "FPriuserdefnvc1",
+                    align: "right",
+                    editor: "false",
+                    width: 120,
+                    headerSort: false
+                },
+                {
+                    title: "冠径",
+                    field: "FPriuserdefnvc2",
+                    align: "right",
+                    editor: "false",
+                    width: 120,
+                    headerSort: false
+                },
+                {
+                    title: "长度",
+                    field: "FPriuserdefnvc3",
+                    align: "right",
+                    editor: "false",
+                    width: 120,
+                    headerSort: false
+                },
+                {
+                    title: "高度",
+                    field: "FPriuserdefnvc4",
+                    align: "right",
+                    editor: "false",
+                    width: 120,
+                    headerSort: false
                 },
                 {
                     title: "库存量",
@@ -660,38 +722,6 @@
                 {
                     title: "批号",
                     field: "FBatchNo",
-                    align: "right",
-                    editor: "false",
-                    width: 120,
-                    headerSort: false
-                },
-                {
-                    title: "自定义项1",
-                    field: "FPriuserdefnvc1",
-                    align: "right",
-                    editor: "false",
-                    width: 120,
-                    headerSort: false
-                },
-                {
-                    title: "自定义项2",
-                    field: "FPriuserdefnvc2",
-                    align: "right",
-                    editor: "false",
-                    width: 120,
-                    headerSort: false
-                },
-                {
-                    title: "自定义项3",
-                    field: "FPriuserdefnvc3",
-                    align: "right",
-                    editor: "false",
-                    width: 120,
-                    headerSort: false
-                },
-                {
-                    title: "自定义项4",
-                    field: "FPriuserdefnvc4",
                     align: "right",
                     editor: "false",
                     width: 120,

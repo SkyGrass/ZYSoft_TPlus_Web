@@ -348,7 +348,7 @@
                 });
             } else {
                 var that = this;
-                var sum = "0";
+                var sum = 0;
                 var temp = $.extend(true, [], this.tableData);
                 $.each(temp, function (i, n) {
                     sum += accAdd(sum, n.FSum)
@@ -448,6 +448,7 @@
                             return vm.$alert('生成单据成功!', '成功', {
                                 confirmButtonText: '确定'
                             }).then(function (response) {
+				vm.form.FAllowances="0.000"
                                 if (response == "confirm") {
                                     vm.initBill();
                                 }
@@ -524,12 +525,26 @@
             }
 
             var temp = $.extend(true, [], this.tableData);
-            var sum = "0.000";
+            var sum = 0;
             $.each(temp, function (i, n) {
                 sum += accAdd(sum, n.FSum)
             });
             if (accSub(this.form.FAllowances, sum) > 0) {
-                this.form.FAllowances = sum //超过总金额 则置为总金额
+
+                var p1 = (sum + '').split('.')[0];
+                if (p1 == "") {
+                    p1 = "0"
+                }
+                var p2 = (sum + '').split('.')[1];
+                if (p2) {
+                    if (p2.length > 3) {
+                        this.form.FAllowances = p1 + '.' + p2.substring(0, 3)//超过总金额 则置为总金额
+                    }
+                } else {
+                    this.form.FAllowances = p1 + '.000'//超过总金额 则置为总金额
+                }
+            } else {
+                this.form.FAllowances = p1 + '.' + p2.substring(0, 3)
             }
         }
     },
@@ -591,7 +606,7 @@
                     title: "存货编码",
                     field: "FInvCode",
                     align: "center",
-                    width: 250,
+                    width: 120,
                     headerSort: false
                 },
                 {
@@ -599,7 +614,7 @@
                     field: "FInvName",
                     align: "center",
                     headerSort: false,
-                    width: 250,
+                    width: 200,
                 },
                 {
                     title: "规格型号",
@@ -614,14 +629,14 @@
                     field: "FUnitName",
                     align: "center",
                     headerSort: false,
-                    width: 100
+                    width: 60
                 },
                 {
                     title: "颜色",
                     field: "FPriuserdefnvc1",
                     align: "right",
                     editor: "false",
-                    width: 120,
+                    width: 60,
                     headerSort: false
                 },
                 {
@@ -629,7 +644,7 @@
                     field: "FPriuserdefnvc2",
                     align: "right",
                     editor: "false",
-                    width: 120,
+                    width: 60,
                     headerSort: false
                 },
                 {
@@ -637,7 +652,7 @@
                     field: "FPriuserdefnvc3",
                     align: "right",
                     editor: "false",
-                    width: 120,
+                    width: 60,
                     headerSort: false
                 },
                 {
@@ -645,14 +660,14 @@
                     field: "FPriuserdefnvc4",
                     align: "right",
                     editor: "false",
-                    width: 120,
+                    width: 60,
                     headerSort: false
                 },
                 {
                     title: "库存量",
                     field: "FStockQty",
                     align: "right",
-                    width: 120,
+                    width: 60,
                     headerSort: false,
                     editor: false,
                     bottomCalc: "sum",
@@ -662,7 +677,7 @@
                     title: "数量",
                     field: "FQty",
                     align: "right",
-                    width: 120,
+                    width: 60,
                     headerSort: false,
                     editor: this.billstatus != "read" ? "number" : "false",
                     bottomCalc: "sum",
@@ -681,7 +696,7 @@
                     title: "单价",
                     field: "FPrice",
                     align: "right",
-                    width: 120,
+                    width: 80,
                     headerSort: false,
                     editor: "number",
                     validator: "min:1",
@@ -697,7 +712,7 @@
                     title: "金额",
                     field: "FSum",
                     align: "right",
-                    width: 120,
+                    width: 80,
                     headerSort: false
                 },
                 {
@@ -710,7 +725,7 @@
                     title: "含税单价",
                     field: "FTaxPrice",
                     align: "right",
-                    width: 120,
+                    width: 80,
                     headerSort: false,
                     editor: "number",
                     validator: "min:1",
@@ -726,7 +741,7 @@
                     title: "含税金额",
                     field: "FTaxSum",
                     align: "right",
-                    width: 120,
+                    width: 80,
                     headerSort: false,
                     bottomCalc: "sum",
                     bottomCalcParams: { precision: 3 }

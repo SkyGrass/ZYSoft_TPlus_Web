@@ -11,6 +11,8 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Net;
 using System.Web.Services.Description;
+using System.Xml;
+
 public class Handler : IHttpHandler
 {
     public class Result
@@ -75,8 +77,8 @@ public class Handler : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
-        ZYSoft.DB.Common.Configuration.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString(); ;// string.Format(@"Data Source=.\SQL2009;Initial Catalog=UFTData697174_000001;User ID=sa;password=123");
         context.Response.ContentType = "text/plain";
+        ZYSoft.DB.Common.Configuration.ConnectionString = LoadXML("ConnectionString");
         if (context.Request.Form["SelectApi"] != null)
         {
             string result = "";
@@ -88,8 +90,8 @@ public class Handler : IHttpHandler
                 case "ws":
                     result = JsonConvert.SerializeObject(new
                     {
-                        wsurl = System.Configuration.ConfigurationManager.AppSettings["WsUrl"],
-                        method = System.Configuration.ConfigurationManager.AppSettings["Method"]
+                        wsurl = LoadXML("WsUrl"),
+                        method = LoadXML("Method")
                     });
                     break;
                 case "getwarehoselist":
@@ -124,6 +126,26 @@ public class Handler : IHttpHandler
             }
             context.Response.Write(result);
         }
+    }
+
+    public string LoadXML(string key)
+    {
+        string filename = HttpContext.Current.Request.PhysicalApplicationPath + @"zysoftweb.config";
+        XmlDocument xmldoc = new XmlDocument();
+        xmldoc.Load(filename);
+        XmlNode node = xmldoc.SelectSingleNode("/configuration/appSettings");
+
+        string return_value = string.Empty;
+        foreach (XmlElement el in node)//读元素值 
+        {
+            if (el.Attributes["key"].Value.ToLower().Equals(key.ToLower()))
+            {
+                return_value = el.Attributes["value"].Value;
+                break;
+            }
+        }
+
+        return return_value;
     }
 
     /*查询仓库数据*/
@@ -401,8 +423,8 @@ public class Handler : IHttpHandler
 
             if (dt != null && dt.Rows.Count > 0)
             {
-                var WsUrl = System.Configuration.ConfigurationManager.AppSettings["WsUrl"];
-                var Method = System.Configuration.ConfigurationManager.AppSettings["Method"];
+                var WsUrl = LoadXML("WsUrl");// System.Configuration.ConfigurationManager.AppSettings["WsUrl"];
+                var Method = LoadXML("Method"); //System.Configuration.ConfigurationManager.AppSettings["Method"];
                 var args = new object[] { JsonConvert.SerializeObject(dt) };
                 object json = InvokeWebService(WsUrl, Method, args);
                 result = JsonConvert.DeserializeObject<TResult>(json.ToString());

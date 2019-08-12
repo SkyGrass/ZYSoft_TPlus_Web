@@ -33,7 +33,7 @@
                 FWarehouseCode: "",/*仓库*/
                 FWarehouseID: "-1",
                 FWarehouseName: "",
-                FTaxRate: 13,
+                FTaxRate: 0,
                 FMaker: "",
                 FIsBuild: false,
                 FAllowances: "0.000"
@@ -276,13 +276,14 @@
             this.tableData = [];
             this.form.FBillID = 0;/*订单ID  默认传0*/
             this.form.FDate = dayjs().format("YYYY-MM-DD");
-            //this.form.FCustCode = ""; /*客户编码*/
+            this.form.FCusName = "";
+            this.form.FCustCode = ""; /*客户编码*/
             this.form.FReciveTypeCode = "05";/*收款方式 编码，（先默认一下编码 ） 05*/
             this.form.FMemo = ``;/*订单备注*/
-            //this.form.FWarehouseCode = "";/*仓库*/
-            //this.form.FWarehouseID = "-1";
-            //this.form.FWarehouseName = "";
-            this.form.FTaxRate = 13;
+            this.form.FWarehouseCode = "";/*仓库*/
+            this.form.FWarehouseID = "-1";
+            this.form.FWarehouseName = "";
+            this.form.FTaxRate = 0;
             this.form.FIsBuild = false
             this.genBillId();
             this.genBillNo();
@@ -448,7 +449,7 @@
                             return vm.$alert('生成单据成功!', '成功', {
                                 confirmButtonText: '确定'
                             }).then(function (response) {
-				vm.form.FAllowances="0.000"
+                                vm.form.FAllowances = "0.000"
                                 if (response == "confirm") {
                                     vm.initBill();
                                 }
@@ -558,7 +559,7 @@
         "form.FTaxRate": {
             handler: function (newData) {
                 if (Number(newData) < 0 || Number(newData) > 100) {
-                    this.form.FTaxRate = "13"
+                    this.form.FTaxRate = "0"
                 } else {
                     var that = this;
                     this.tableData = this.tableData.map(function (item) {
@@ -577,7 +578,7 @@
         this.maxHeight = $(window).height() * 0.5;
         this.form.FMaker = loginName;
         this.grid = new Tabulator("#grid", {
-            height: "70vh",
+            height: "65vh",
             layout: "fitColumns",
             columnVertAlign: "bottom",
             selectable: true, //make rows selectable
@@ -713,7 +714,9 @@
                     field: "FSum",
                     align: "right",
                     width: 80,
-                    headerSort: false
+                    headerSort: false,
+                    bottomCalc: "sum",
+                    bottomCalcParams: { precision: 3 }
                 },
                 {
                     title: "税率",

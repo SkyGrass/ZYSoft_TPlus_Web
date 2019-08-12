@@ -66,8 +66,8 @@
                             </el-form-item>
                             <el-form-item label="单据编号">
                                 <el-input class="underline" v-model="form.FBillNo" readOnly></el-input>
-                            </el-form-item>
-                            <el-form-item label="税率(%)">
+                            </el-form-item> <br />
+                            <el-form-item label="税率">
                                 <el-input class="underline" v-model="form.FTaxRate" type="number" min="0" max="100">
                                 </el-input>
                             </el-form-item>
@@ -78,7 +78,7 @@
                         </el-form>
                     </el-header>
                     <el-main style="'height':maxHeight">
-                        <div id="grid"></div>
+                        <div id="grid" style="margin-top:50px"></div>
                     </el-main>
                 </el-container>
             </el-main>

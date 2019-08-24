@@ -183,7 +183,7 @@ public class Handler : IHttpHandler
             (string.Format(@"SELECT t1.idwarehouse, t1.idinventory, t2.code invcode,t2.name invname,
                         t2.specification invstd,t2.idunit,t21.code unitcode,
                         t21.name unitname,
-                        t1.basequantity iquantity, t1.batch,t2.priuserdefnvc1 
+                        t1.canusebasequantity iquantity, t1.batch,t2.priuserdefnvc1 
                         ,t2.priuserdefnvc2,t2.priuserdefnvc3,t2.priuserdefnvc4,
                         ISNULL((SELECT TOP 1 inPrice FROM ST_TransVoucher u1 JOIN dbo.ST_TransVoucher_b u2 ON u1.id=u2.idTransVoucherDTO
                         WHERE u1.idinwarehouse=t1.idwarehouse AND u2.idinventory =t1.idinventory ORDER BY t2.id DESC ),0) iprice

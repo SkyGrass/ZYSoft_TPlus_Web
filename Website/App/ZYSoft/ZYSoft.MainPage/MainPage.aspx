@@ -32,6 +32,10 @@
         .underline {
             width: 160px !important;
         }
+
+        .tabulator-row {
+            border-bottom: 1px solid #bbb;
+        }
     </style>
 </head>
 
@@ -108,6 +112,8 @@
                 tooltip-effect="dark"
                 :height="maxHeight"
                 style="width: 100%"
+                border
+                stripe
                 @selection-change="handleSelectionChange">
                 <el-table-column
                   type="selection"
@@ -176,7 +182,7 @@
                 <el-button type="primary" @click="confirm">确定</el-button>
             </div>
         </el-dialog>
-             <el-dialog :title="'客户查询：'+form.FWarehouseName" :visible.sync="clientVisible">
+             <el-dialog :title="'客户查询(双击确认)：'+form.FWarehouseName" :visible.sync="clientVisible">
               <el-input placeholder="客户名称、客户编码" focus  v-model="queryClientform.keyword" @change="remoteQueryClient">
               </el-input>  
            <el-table
@@ -186,6 +192,8 @@
                 :height="maxHeight"
                 style="width: 100%"
                  highlight-current-row
+                border
+               @row-dblclick ="confirmClient"
                 @row-click="handleClientSelectionChange">
                 <el-table-column
                   prop="code"

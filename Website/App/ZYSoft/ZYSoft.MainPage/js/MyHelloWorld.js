@@ -258,7 +258,9 @@
             });
         },
         tableRowGTZero() {
-            return this.tableData.length > 0
+            return this.tableData.some(function (row) {
+                return !!row.FIsFake
+            })
         },
         calcValue(value) {
             return value;
@@ -273,7 +275,11 @@
             })
         },
         initBill() {
-            this.tableData = [];
+            var temp = [];
+            for (var i = 0; i < 10; i++) {
+                temp.push({ FIndex: i + 1, FIsFake: i > 10 })
+            }
+            this.tableData = temp;
             this.form.FBillID = 0;/*订单ID  默认传0*/
             this.form.FDate = dayjs().format("YYYY-MM-DD");
             this.form.FCusName = "";
@@ -335,10 +341,20 @@
         },
         editBill() { },
         saveBill() {
+            var temp = this.tableData.map(function (row) {
+                return row.FWarehouseCode;
+            });
+            var temp1 = new Set(temp);
+            if (temp1.length > 1) {
+                return this.$alert('发现来自多个仓库的库存数据,请核查!', '错误', {
+                    confirmButtonText: '确定'
+                });
+            }
+
             if (this.tableData.some(function (row) {
                 return row.FQty <= 0
             })) {
-                return this.$alert('表体数据不完整,请核查数量!', '错误', {
+                return this.$alert('发现数量小于0的数据,请核查数量!', '错误', {
                     confirmButtonText: '确定'
                 });
             }
@@ -575,6 +591,7 @@
         }
     },
     mounted() {
+        var that = this;
         this.maxHeight = $(window).height() * 0.5;
         this.form.FMaker = loginName;
         this.grid = new Tabulator("#grid", {
@@ -672,6 +689,7 @@
                     headerSort: false,
                     editor: false,
                     bottomCalc: "sum",
+                    validator: "min:1",
                     bottomCalcParams: { precision: 3 }
                 },
                 {

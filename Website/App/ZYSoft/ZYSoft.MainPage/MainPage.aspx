@@ -36,6 +36,13 @@
         .tabulator-row {
             border-bottom: 1px solid #bbb;
         }
+       .el-table__body tr:hover>td{
+    background-color: rgb(254,247,210)!important;
+  }
+ 
+  .el-table__body tr.current-row>td{
+    background-color: rgb(254,247,210)!important;
+        }
     </style>
 </head>
 
